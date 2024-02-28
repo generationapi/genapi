@@ -12,11 +12,11 @@ This project provides a framework for quickly and easily building AI-backed API 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/generationapi/genapi.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd your-repo-name
+   cd genapi
    ```
 3. Install dependencies:
    ```bash
@@ -28,16 +28,16 @@ This project provides a framework for quickly and easily building AI-backed API 
 ## Usage
 
 ### Basic Usage
-To start processing requests, you need to initialize the `GenerationApi` class with your OpenAPI specification, model name, and API key. Here's a simple example:
+To start processing requests, you need to initialize the `GenApi` class with your OpenAPI specification, model name, and API key. Here's a simple example:
 
 ```javascript
-import GenerationApi from './path-to-generation-api';
+import GenApi from '@generationapi/genapi';
 
 const openApiSpec = {/* Your OpenAPI Specification here */};
 const modelName = 'gpt-3.5-turbo'; // or any other supported model
 const apiKey = 'your-api-key';
 
-const apiProcessor = new GenerationApi(openApiSpec, modelName, apiKey);
+const apiProcessor = new GenApi(openApiSpec, modelName, apiKey);
 
 // Example request
 const pathName = '/your/api/path';
