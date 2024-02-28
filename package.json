@@ -1,6 +1,6 @@
 {
   "name": "@generationapi/genapi",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A JavaScript library for for quickly and easily building AI-backed API endpoints on top of LLMs",
   "main": "src/index.js",
   "repository": {
