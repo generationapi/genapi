@@ -15,7 +15,7 @@
     "genapi",
     "openapi"
   ],
-  "author": "Your Name <your-email@example.com>",
+  "author": "Paul Meller",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/generationapi/genapi/issues"
