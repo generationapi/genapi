@@ -77,8 +77,7 @@ We welcome contributions from the community! Please check out our [contributing 
 This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code as per the license terms.
 
 ## Acknowledgments
-- OpenAI for the GPT models
-- Google for the Generative AI models
-- Contributors and maintainers of the `@langchain/*` libraries
+- Contributors and maintainers of langchain
+- OpenAI, Google for the AI models
 
 For more details on usage, configuration, and customization, please refer to the detailed documentation (link to detailed documentation).
