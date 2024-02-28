@@ -1,12 +1,12 @@
 # GenAPI - the fastest and best way to build AI-backed APIs
 
 ## Introduction
-This project provides a framework for quickly and easily building AI-backed API endpoints on top of LLMs. By leveraging the OpenAPI specification, the system ensures accurate and context-aware responses, making it an ideal solution for testing and rapid prototyping.
+This project provides a framework for quickly and easily building AI-backed API endpoints with LLMs. By leveraging the OpenAPI 3.1.0 specification, the system ensures accurate and context-aware responses, making it an ideal solution for testing and rapid prototyping.
 
 ## Installation
 
 ### Prerequisites
-- Node.js (version 12.x or higher recommended)
+- Node.js (version 16.x or higher recommended)
 - npm (bundled with Node.js) or Yarn
 
 ### Steps
