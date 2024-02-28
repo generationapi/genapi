@@ -1,0 +1,31 @@
+{
+  "name": "GenAPI",
+  "version": "1.0.0",
+  "description": "A JavaScript library for processing API requests using Large Language Models.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/genapi-js.git"
+  },
+  "keywords": [
+    "api",
+    "language model",
+    "openai",
+    "google-ai",
+    "genapi",
+    "openapi"
+  ],
+  "author": "Your Name <your-email@example.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-username/genapi-js/issues"
+  },
+  "homepage": "https://github.com/your-username/genapi-js#readme",
+  "dependencies": {
+    "@langchain/core": "^0.1.22",
+    "@langchain/google-genai": "^0.0.10",
+    "@langchain/openai": "^0.0.14",
+    "@readme/openapi-parser": "^2.5.0",
+    "ajv": "^8.12.0"
+  }
+}
