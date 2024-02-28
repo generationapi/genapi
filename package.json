@@ -1,11 +1,11 @@
 {
-  "name": "GenAPI",
+  "name": "@generationapi/genapi",
   "version": "1.0.0",
-  "description": "A JavaScript library for processing API requests using Large Language Models.",
+  "description": "A JavaScript library for for quickly and easily building AI-backed API endpoints on top of LLMs",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/genapi-js.git"
+    "url": "git+https://github.com/generationapi/genapi.git"
   },
   "keywords": [
     "api",
@@ -18,14 +18,18 @@
   "author": "Your Name <your-email@example.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/your-username/genapi-js/issues"
+    "url": "https://github.com/generationapi/genapi/issues"
   },
-  "homepage": "https://github.com/your-username/genapi-js#readme",
+  "homepage": "https://github.com/generationapi/genapi#readme",
   "dependencies": {
     "@langchain/core": "^0.1.22",
     "@langchain/google-genai": "^0.0.10",
     "@langchain/openai": "^0.0.14",
     "@readme/openapi-parser": "^2.5.0",
     "ajv": "^8.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
