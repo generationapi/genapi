@@ -8,6 +8,7 @@ import Ajv from "ajv";
 
 // Define maximum number of retry attempts with a strategy to reduce query complexity on each retry
 const MAX_RETRY_ATTEMPTS = 3;
+const MAX_TOKENS = 8192;
 
 /**
  * Removes Markdown code markup from a string. This includes both block and inline code elements.
@@ -99,11 +100,11 @@ class ModelAdapter {
 function createModelAdapter(modelName, apiKey) {
   const adapters = {
     gpt: () =>
-      new ChatOpenAI({ modelName, maxTokens: 4096 }).bind({
+      new ChatOpenAI({ modelName, maxTokens: MAX_TOKENS }).bind({
         response_format: { type: "json_object" },
       }),
     gemini: () =>
-      new ChatGoogleGenerativeAI({ modelName, maxOutputTokens: 4096 }),
+      new ChatGoogleGenerativeAI({ modelName, maxOutputTokens: MAX_TOKENS }),
   };
 
   const adapterKey = Object.keys(adapters).find((key) =>
