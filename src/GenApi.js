@@ -8,7 +8,7 @@ import Ajv from "ajv";
 
 // Define maximum number of retry attempts with a strategy to reduce query complexity on each retry
 const MAX_RETRY_ATTEMPTS = 3;
-const MAX_TOKENS = 8192;
+const MAX_TOKENS = 4096;
 
 /**
  * Removes Markdown code markup from a string. This includes both block and inline code elements.
