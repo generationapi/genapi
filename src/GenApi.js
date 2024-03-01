@@ -8,7 +8,7 @@ import Ajv from "ajv";
 
 // Define maximum number of retry attempts with a strategy to reduce query complexity on each retry
 const MAX_RETRY_ATTEMPTS = 3;
-const MAX_TOKENS = 4096;
+const MAX_TOKENS = 2048;
 
 /**
  * Removes Markdown code markup from a string. This includes both block and inline code elements.
@@ -97,14 +97,22 @@ class ModelAdapter {
  * @param {string} apiKey - The API key for authenticating with the model provider.
  * @returns {object} An instance of the chosen model adapter.
  */
-function createModelAdapter(modelName, apiKey) {
+function createModelAdapter(modelName, apiKey, maxTokens) {
   const adapters = {
     gpt: () =>
-      new ChatOpenAI({ modelName, maxTokens: MAX_TOKENS }).bind({
+      new ChatOpenAI({
+        modelName,
+        apiKey,
+        maxTokens: maxTokens,
+      }).bind({
         response_format: { type: "json_object" },
       }),
     gemini: () =>
-      new ChatGoogleGenerativeAI({ modelName, maxOutputTokens: MAX_TOKENS }),
+      new ChatGoogleGenerativeAI({
+        modelName,
+        apiKey,
+        maxOutputTokens: maxTokens,
+      }),
   };
 
   const adapterKey = Object.keys(adapters).find((key) =>
@@ -120,13 +128,13 @@ function createModelAdapter(modelName, apiKey) {
  * It leverages the OpenAPI specification to ensure requests are processed accurately according to the API's definition.
  */
 class GenApi {
-  constructor(openApiSpec, modelName, apiKey) {
+  constructor(openApiSpec, modelName, apiKey, maxTokens = MAX_TOKENS) {
     this.ajv = new Ajv({ strict: false });
     this.specPromise = OpenAPIParser.dereference(openApiSpec).catch((error) => {
       console.error("Initialization error:", error);
       throw error;
     });
-    this.llmService = createModelAdapter(modelName, apiKey);
+    this.llmService = createModelAdapter(modelName, apiKey, maxTokens);
   }
 
   beforePromptGeneration(callback) {
@@ -148,6 +156,10 @@ class GenApi {
    * @returns {Promise<object>} The processed API response, structured according to the OpenAPI spec.
    */
   async processRequest(pathName, method, data, retryCount = 0) {
+    console.log(
+      `processRequest called with path: ${pathName}, method: ${method}, retryCount: ${retryCount}`,
+    ); // Log method entry and retry count
+
     const spec = await this.specPromise;
     let requestData = this.beforePromptHook
       ? this.beforePromptHook(data)
@@ -166,13 +178,14 @@ class GenApi {
       ["system", system_prompt],
       ["user", "{input}"],
     ]);
-
     const llmChain = prompt.pipe(this.llmService).pipe(outputParser);
 
     try {
       let response = await llmChain.invoke({
         input: JSON.stringify(requestData),
       });
+      console.log(`Response received for path: ${pathName}, method: ${method}`); // Log successful response
+
       response = removeMarkdownCodeMarkup(response);
       response = this.afterResponseHook
         ? this.afterResponseHook(response)
@@ -188,6 +201,11 @@ class GenApi {
       deepMerge(output, JSON.parse(response));
       return output;
     } catch (error) {
+      console.log(
+        `Error encountered for path: ${pathName}, method: ${method}, retryCount: ${retryCount}`,
+        error.message,
+      ); // Log error encountered
+
       if (retryCount < MAX_RETRY_ATTEMPTS) {
         const modifiedRequestData = this.modifyQueryForTailOff(
           requestData,
@@ -196,7 +214,8 @@ class GenApi {
         console.log(
           `Retrying request with modified query (attempt ${retryCount + 1}):`,
           modifiedRequestData,
-        );
+        ); // Log retry attempt
+
         return this.processRequest(
           pathName,
           method,
@@ -204,6 +223,9 @@ class GenApi {
           retryCount + 1,
         );
       } else {
+        console.log(
+          `Max retries reached for path: ${pathName}, method: ${method}. Throwing error.`,
+        ); // Log max retries reached
         throw error;
       }
     }

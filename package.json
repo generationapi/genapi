@@ -1,6 +1,6 @@
 {
   "name": "@generationapi/genapi",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A JavaScript library for quickly and easily building AI-backed API endpoints on top of LLMs",
   "type": "module",
   "main": "src/index.js",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/generationapi/genapi#readme",
   "dependencies": {
+    "@google/generative-ai": "^0.2.1",
     "@langchain/core": "^0.1.22",
     "@langchain/google-genai": "^0.0.10",
     "@langchain/openai": "^0.0.14",
