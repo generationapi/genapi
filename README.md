@@ -12,7 +12,7 @@ This project provides a framework for quickly and easily building AI-backed API 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/generationapi/genapi.git
+   git clone https://github.com/generationapi/genapi
    ```
 2. Navigate to the project directory:
    ```bash
@@ -33,8 +33,77 @@ To start processing requests, you need to initialize the `GenApi` class with you
 ```javascript
 import GenApi from '@generationapi/genapi';
 
-const openApiSpec = {/* Your OpenAPI Specification here */};
-const modelName = 'gpt-3.5-turbo'; // or any other supported model
+const openApiSpec = {
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Hello World",
+    "version": "1.0.0",
+    "description": "Respond with Hello to the name input in a language other than English. Always use a random language."
+  },
+  "paths": {
+    "/hello-world": {
+      "post": {
+        "tags": [],
+        "summary": "Hello World",
+        "description": "Respond with Hello to the name input in a language other than English. Always use a random language.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "title": "User Name",
+                    "description": "The name of the user to be greeted."
+                  }
+                }
+              },
+              "examples": {
+                "Request": {
+                  "value": {
+                    "text": "John"
+                  },
+                  "summary": "Simple text submission"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "x-prompt": "Given a text input, respond with &#x27;Hello&#x27; followed by the name in a random non-English language. Ensure the output is in the format specified by the &#x60;response_schema&#x60;.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Successfully processed the request, returning a structured response from the model."
+          },
+          "400": {
+            "description": "Invalid input, e.g., missing or invalid `modelId` or data."
+          },
+          "401": {
+            "description": "Authentication information is missing or invalid."
+          },
+          "404": {
+            "description": "The specified `modelId` was not found."
+          }
+        }
+      }
+    }
+  }
+};
+
+const modelName = 'model-id'; // "google-gemini, gpt-4, gpt-3.5-turbo, mistral-large-latest, claude-3-sonnet"
 const apiKey = 'your-api-key';
 
 const apiProcessor = new GenApi(openApiSpec, modelName, apiKey);
@@ -42,7 +111,9 @@ const apiProcessor = new GenApi(openApiSpec, modelName, apiKey);
 // Example request
 const pathName = '/your/api/path';
 const method = 'post';
-const requestData = {/* Your request data here */};
+const requestData = {
+  "text": "Paul"
+};
 
 apiProcessor.processRequest(pathName, method, requestData)
   .then(response => console.log(response))
