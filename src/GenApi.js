@@ -135,7 +135,7 @@ function createModelAdapter(modelName, apiKey, maxTokens) {
         apiKey,
         maxTokens: maxTokens,
       }),
-    anthropic: () =>
+    claude: () =>
       new ChatAnthropic({
         modelName,
         anthropicApiKey: apiKey,
