@@ -2,6 +2,7 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatMistralAI } from "@langchain/mistralai";
+import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import OpenAPIParser from "@readme/openapi-parser";
