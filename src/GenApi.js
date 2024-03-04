@@ -1,6 +1,7 @@
 // Import necessary modules and classes
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatMistralAI } from "@langchain/mistralai";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import OpenAPIParser from "@readme/openapi-parser";
@@ -82,7 +83,22 @@ class ModelAdapter {
       (match) => (match === "{" ? "{{" : "}}"),
     );
 
-    const prompt = `Can you pretend to be the API in the following OpenAPI SPECIFICATION for all future requests and follow the INSTRUCTIONS below.\n----------\nSPECIFICATION:\n${stringSchema}\n\n----------\nINSTRUCTIONS:\n- ALWAYS respond in JSON\n- ALWAYS be tolerant and try to return 200 status on requests\n- ALWAYS only ever include data from the request data\n- NEVER include data not in the request data\n- NEVER use example data in your response.\n-DO NOT INCLUDE BACKTICKS IN THE RESPONSE.`;
+    const prompt = `Can you pretend to be the API in the following OpenAPI SPECIFICATION for all future requests and follow the INSTRUCTIONS below.
+    
+----------
+SPECIFICATION:
+${stringSchema}
+
+----------
+INSTRUCTIONS:
+- ALWAYS respond in JSON
+- ALWAYS be tolerant and try to return 200 status on requests
+- ALWAYS only ever include data from the request data
+- NEVER include data not in the request data
+- NEVER use example data in your response.
+- ALWAYS leave blank if no data is provided
+- DO NOT INCLUDE BACKTICKS IN THE RESPONSE
+`;
 
     return prompt;
   }
@@ -112,6 +128,18 @@ function createModelAdapter(modelName, apiKey, maxTokens) {
         modelName,
         apiKey,
         maxOutputTokens: maxTokens,
+      }),
+    mistral: () =>
+      new ChatMistralAI({
+        modelName,
+        apiKey,
+        maxTokens: maxTokens,
+      }),
+    anthropic: () =>
+      new ChatAnthropic({
+        modelName,
+        anthropicApiKey: apiKey,
+        maxTokens: maxTokens,
       }),
   };
 
