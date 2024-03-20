@@ -119,7 +119,7 @@ function createModelAdapter(modelName, apiKey, maxTokens) {
     gpt: () =>
       new ChatOpenAI({
         modelName,
-        apiKey,
+        openAIApiKey: apiKey,
         maxTokens: maxTokens,
       }).bind({
         response_format: { type: "json_object" },

@@ -109,7 +109,7 @@ const apiKey = 'your-api-key';
 const apiProcessor = new GenApi(openApiSpec, modelName, apiKey);
 
 // Example request
-const pathName = '/your/api/path';
+const pathName = '/hello-world';
 const method = 'post';
 const requestData = {
   "text": "Paul"
