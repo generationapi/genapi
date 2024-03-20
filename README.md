@@ -3,11 +3,17 @@
 ## Introduction
 This project provides a framework for quickly and easily building AI-backed API endpoints with LLMs. By leveraging the OpenAPI 3.1.0 specification, the system ensures accurate and context-aware responses, making it an ideal solution for testing and rapid prototyping.
 
+##### Features:
+* **Multi LLM Support**: Choose from a range of leading AI language models including OpenAI, Google Generative AI, MistralAI, and Anthropic. Our unified interface ensures seamless integration, giving you the freedom to select the best model for your unique needs.
+* **OpenAPI Specification Compliance**: With full support for the OpenAPI specification, our framework guarantees that your API requests and responses are meticulously structured and validated. Say goodbye to guesswork and enjoy interactions that just work.
+* **Guaranteed JSON Response**: Our robust retry mechanism intelligently modifies and simplifies queries in the event of failures, ensuring you always get a JSON response. This enhances the reliability of your API requests, even under challenging conditions.
+* **Response Validation and Formatting**: Trust in the accuracy and conformity of your API responses with our thorough validation process. Responses are automatically formatted according to your API's specified structure, ensuring consistency and reliability.
+* **Extensibility through Hooks**: Tailor the framework to your project's specific needs with customizable hooks for both prompt generation and response parsing. This allows for unparalleled flexibility in how you process requests and handle responses.
+
 ## Installation
 
 ### Prerequisites
-- Node.js (version 16.x or higher recommended)
-- npm (bundled with Node.js) or Yarn
+- Node.js (version 18.x or higher recommended)
 
 ### Steps
 1. Clone the repository:
